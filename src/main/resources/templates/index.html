@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="common/header :: common-header"></head>
+
+<body class="bg-general">
+    <div th:replace="common/header :: common-navbar"></div>
+
+    <div class="container-fluid mt-2">
+        <div class="bg-index">
+            <div class="row ms-3 me-3 pt-3">
+                <div class="col-sm-4 justify-content-center p-3">
+                    <img src="../static/img/logo.png" th:src="@{/img/logo.png}" alt="logo" srcset="" class="logo w-75 mt-4 mx-auto d-block">
+                </div>
+                <div class="col-sm-8 p-3">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="../static/img/slides/slide1.jpg" th:src="@{/img/slides/slide1.jpg}" class="d-block w-100 slide" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="../static/img/slides/slide2.jpg" th:src="@{/img/slides/slide2.jpg}" class="d-block w-100 slide" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="../static/img/slides/slide3.jpg" th:src="@{/img/slides/slide3.jpg}" class="d-block w-100 slide" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row ms-3 me-3 p-3 justify-content-center">
+            <hr class="ms-5 me-5 st w-100">
+            <div class="container">
+                <div class="row pb-3">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <a th:href="@{/bookshelf}">
+                                    <img class="w-100" src="../static/img/bestseller.png" th:src="@{/img/bestseller.png}" alt="OurBestSeller" srcset="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <a th:href="@{/hours}">
+                                    <img class="w-100" src="../static/img/hours.png" th:src="@{/img/hours.png}" alt="Directions" srcset="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <a th:href="@{/faq}">
+                                    <img class="w-100" src="../static/img/faq.png" th:src="@{/img/faq.png}" alt="FAQ" srcset="">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center position-relative">
+            <h4 class="bg-dark text-light p-3 w-25 text-center flex-shrink-0">Featured Books</h4>
+
+        </div>
+        <div class="row ms-3 me-3 p-3">
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="../static/img/shelf.png" th:src="@{/img/shelf.png}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/2.png" th:src="@{/img/books/2.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/3.png" th:src="@{/img/books/3.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/2.png" th:src="@{/img/books/2.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/3.png" th:src="@{/img/books/3.png}" alt="" srcset="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="../static/img/shelf.png" th:src="@{/img/shelf.png}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../static/img/shelf.png" th:src="@{/img/shelf.png}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/1.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-fluid" src="../static/img/books/2.png" th:src="@{/img/books/1.png}" alt="" srcset="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div th:replace="common/header :: common-footer"></div>
+    <div th:replace="common/header :: common-body-scripts"></div>
+</body>
+
+</html>

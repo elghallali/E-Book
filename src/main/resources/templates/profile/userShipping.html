@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="common/header :: common-header"></head>
+
+<body class="bg-general">
+    <div th:replace="common/header :: common-navbar"></div>
+    <div class="container-fluid">
+        <div class="row d-flex flex-row">
+            <div class="col-lg-3">
+                <div th:replace="common/header :: common-slideBar"></div>
+            </div>
+            <main class="col-lg-9">
+                <div class="container">
+                    <div class="row justify-content-center mt-2">
+                        <div class="col-lg-10">
+                            <div class="card bg-gard-line shadow-lg border-0 rounded-lg mb-2">
+                                <div class="card-header ph-card-header">
+                                    <h3 class="text-center  font-weight-light my-4"><span th:text="${#strings.toUpperCase(user.username)}"></span>
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div th:if="${listOfShippingAddresses}">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item active" aria-current="page">List Of Shipping Addresses
+                                                </li>
+                                                <li class="breadcrumb-item"><a th:href="@{/addNewShippingAddress}">Add
+                                                        (Update) Shipping Address</a>
+                                                </li>
+                                            </ol>
+                                        </nav>
+                                        <hr>
+                                        <form th:action="@{/setDefaultShippingAddress}" method="post">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col">Default</th>
+                                                        <th class="col">Shipping Address</th>
+                                                        <th class="col">Operations</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="userShipping : ${userShippingList}">
+                                                        <td><input type="radio" name="defaultShippingAddressId" th:value="${userShipping.id}" th:checked="${userShipping.userShippingDefault}" /><span>
+                                                                default</span>
+                                                        </td>
+                                                        <td th:text="${userShipping.userShippingStreet1}+', '+ ${userShipping.userShippingCity}+', '+${userShipping.userShippingState}">
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-success" th:href="@{/updateUserShipping(id=${userShipping.id})}">
+                                                                <i class="fas fa-pencil-alt"></i> Edit</a>
+                                                            <a class="btn btn-danger" th:href="@{/removeUserShipping(id=${userShipping.id})}">
+                                                                <i class="fas fa-trash-alt"></i> Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button class="btn btn-primary" type="submit">Save</button>
+                                        </form>
+                                    </div>
+                                    <div th:if="${addNewShippingAddress}">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item"><a th:href="@{/listOfShippingAddresses}">List Of Shipping
+                                                        Addresses</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">Add (Update) Shipping Address
+                                                </li>
+                                            </ol>
+                                        </nav>
+                                        <hr>
+                                        <form th:action="@{/addNewShippingAddress}" method="post">
+                                            <div class="bg-info" th:if="${updateUserShippingInfo}">User info updated.
+                                            </div>
+                                            <input hidden="hidden" name="id" th:value="${userShipping.id}" />
+                                            <!-- Shipping Address -->
+                                            <div class="form-group justify-content-center">
+                                                <h4 class="text-center">Shipping Address</h4>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="shippingName">* Name</label> <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name" th:name="userShippingName" required th:value="${userShipping.userShippingName}"
+                                                />
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="shippingAddress">* Street Address</label> <input type="text" class="form-control" id="shippingAddress" placeholder="Street Address 1" th:name="userShippingStreet1" required th:value="${userShipping.userShippingStreet1}"
+                                                />
+                                                <input type="text" class="form-control mb-2" placeholder="Street Address 2" th:name="userShppingStreet2" th:value="${userShipping.userShippingStreet2}" />
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group mb-3">
+                                                        <label for="shippingCity">* City</label> <input type="text" class="form-control" id="shippingCity" placeholder="Shipping City" th:name="userShippingCity" required th:value="${userShipping.userShippingCity}"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group mb-3">
+                                                        <label for="shippingState">* State</label> <select id="shippingState" class="form-control" th:name="userShippingState" th:value="${userShipping.userShippingState}" required>
+                                                            <option value="" disabled>Please
+                                                                select an option</option>
+                                                            <option th:each="state : ${stateList}" th:text="${state}"
+                                                                th:selected="(${userShipping.userShippingState}==${state})">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group mb-3">
+                                                        <label for="shippingZipcode">* Zipcode</label> <input type="text" class="form-control" id="shippingZipcode" placeholder="Shipping Zipcode" th:name="userShippingZipcode" required th:value="${userShipping.userShippingZipcode}"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr />
+                                            <button type="submit" class="btn btn-primary btn-lg">Save
+                                                All</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div th:replace="common/header :: common-footer"></div>
+    <div th:replace="common/header :: common-body-scripts"></div>
+</body>
+
+</html>

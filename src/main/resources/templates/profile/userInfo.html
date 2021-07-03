@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="common/header :: common-header"></head>
+
+<body class="bg-general">
+    <div th:replace="common/header :: common-navbar"></div>
+    <div class="container-fluid">
+        <div class="row d-flex flex-row">
+            <div class="col-lg-3">
+                <div th:replace="common/header :: common-slideBar"></div>
+            </div>
+            <main class="col-lg-9">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="card bg-gard-line shadow-lg border-0 rounded-lg my-2">
+                                <div class="card-header ph-card-header">
+                                    <h3 class="text-center  font-weight-light my-4"><span th:text="${#strings.toUpperCase(user.username)}"></span>
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-danger" th:if="${incorrectPassword}">
+                                        <strong>Incorrect Password!</strong> Please enter the correct password for the current user.
+                                    </div>
+                                    <div class="alert alert-success" th:if="${updateSuccess}">
+                                        <strong>Update Successfully!!!</strong>
+                                    </div>
+                                    <form th:action="@{/auth/updateUserInfo}" method="post">
+                                        <input type="hidden" name="id" th:value="${user.id}" />
+                                        <div class="bg-info" th:if="${updateUserInfo}">User info updated.</div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" id="firstName" type="text" name="firstName" th:value="${user.firstName}" />
+                                                    <label for="firstName">First name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control" id="lastName" type="text" name="lastName" th:value="${user.lastName}" />
+                                                    <label for="lastName">Last name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="username" type="text" th:value="${user.username}" disabled />
+                                            <label for="username">Username</label>
+                                        </div>
+                                        <div class="row">
+                                            &nbsp;<span id="checkPasswordMatch" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="currentPassword" type="password" name="password" th:value="${currentPassword}" />
+                                            <label for="currentPassword">Current Password</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="email" type="email" th:value="${user.email}" disabled />
+                                            <label for="email">Email address</label>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" id="txtNewPassword" type="password" name="newPassword" />
+                                                    <label for="txtNewPassword">Password</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" id="txtConfirmPassword" type="password" />
+                                                    <label for="txtConfirmPassword">Confirm Password</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 mb-0">
+                                            <div class="d-grid">
+                                                <button type="submit" id="updateUserInfoButton" class="btn btn-primary btn-block"><i class="fas fa-save me-2"></i>
+                                                    Save
+                                                    All</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+
+    <div th:replace="common/header :: common-footer"></div>
+    <div th:replace="common/header :: common-body-scripts"></div>
+    <script th:inline="javascript">
+        function checkPasswordMatch() {
+            var password = $("#txtNewPassword").val();
+            var confirmPassword = $("#txtConfirmPassword").val();
+            if (password == "" && confirmPassword == "") {
+                $("#checkPasswordMatch").html("");
+                $("#updateUserInfoButton").prop('disabled', false);
+            } else {
+                if (password != confirmPassword) {
+                    $("#checkPasswordMatch").html("Passwords do not match!");
+                    $("#updateUserInfoButton").prop('disabled', true);
+                } else {
+                    $("#checkPasswordMatch").html("Passwords match");
+                    $("#updateUserInfoButton").prop('disabled', false);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

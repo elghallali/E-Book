@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="common/header :: common-header"></head>
+
+<body class="bg-general">
+    <div th:replace="common/header :: common-navbar"></div>
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Book Store</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop homepage template</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="py-1">
+        <div class="container px-4 mt-5">
+            <nav class="nav nav-pills mb-6 mb-md-0 justify-content-lg-center">
+                <a th:class="${activeAll}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/bookshelf(category='all')}">All</a>
+                <a th:class="${activeProgramming}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Programming')}">Programming</a>
+                <a th:class="${activeEngineering}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Engineering')}">Engineering</a>
+                <a th:class="${activeMathematics}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Mathematics')}">Mathematics</a>
+                <a th:class="${activePhysicsAndChemistry}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Physics And Chemistry')}">Physics And Chemistry</a>
+                <a th:class="${activeFiction}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Fiction')}">Fiction</a>
+                <a th:class="${activeManagement}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Management')}">Management</a>
+                <a th:class="${activeArtsLiterature}? 'nav-link active' : 'nav-link'" data-toggle="tab" th:href="@{/searchByCategory(category='Arts &amp; Literature')}">Arts &amp; Literature</a>
+            </nav>
+            <hr>
+            <div>
+                <div th:if="${emptyList}">
+                    <h5 class="text-center" style="font-style: italic;">Oops, no result is found. Try something else or try again later.
+                    </h5>
+                </div>
+            </div>
+
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+                <div data-th-each="book : ${bookList}">
+                    <div th:if="${book != null}">
+                        <div class="col mb-5">
+                            <div class="card">
+                                <!-- Sale badge-->
+                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                    Sale
+                                </div>
+                                <!-- Product image-->
+                                <a th:href="@{/bookDetail?id=}+${book.id}">
+                                    <img class="card-img-top h-25" th:src="@{/img/books/}+'book_'+${book.id}+'.png'" alt="..." />
+                                </a>
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <a th:href="@{/bookDetail?id=}+${book.id}">
+                                            <h4 th:text="${book.title}" class="fw-bolder"></h4>
+                                        </a>
+                                        <!-- Product reviews-->
+                                        <div class="d-flex justify-content-center small text-warning mb-2">
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        </div>
+                                        <!-- Product price-->
+                                        <span class="text-muted text-decoration-line-through" th:text="${#numbers.formatDecimal(book.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span>
+                                        <span th:text="${#numbers.formatDecimal(book.ourPrice, 0 , 'COMMA', 2, 'POINT')}"></span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </section>
+    <div th:replace="common/header :: common-footer"></div>
+    <div th:replace="common/header :: common-body-scripts"></div>
+</body>
+
+</html>
