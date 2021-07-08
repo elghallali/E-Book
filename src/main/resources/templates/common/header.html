@@ -1,211 +1,267 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:fragment="common-header">
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>E-Book</title>
-    <link href="../../static/css/simple-datatables.css" th:href="@{/css/simple-datatables.css}" rel="stylesheet" />
-    <link href="../../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
-    <script src="../../static/js/all.min.js" th:src="@{/js/all.min.js}" crossorigin="anonymous"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>E-Book</title>
+<link href="../../static/css/simple-datatables.css"
+	th:href="@{/css/simple-datatables.css}" rel="stylesheet" />
+<link href="../../static/css/styles.css" th:href="@{/css/styles.css}"
+	rel="stylesheet" />
+<script src="../../static/js/all.min.js" th:src="@{/js/all.min.js}"></script>
 </head>
 
 <body>
-    <div th:fragment="common-navbar">
-        <nav class="navbar navbar-expand-lg navbar-light bg-grad-line">
-            <div class="container-fluid">
-                <a class="navbar-brand ps-4" th:href="@{/}"><i class="fas fa-home"></i> E-Book Store</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-book"></i> Books
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a th:href="@{/bookshelf}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-th-list"></span> Browse All Books</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Programming')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Programming</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Engineering')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Engineering</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Mathematics')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Mathematics</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Physics And Chemistry')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Physics And Chemistry</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Fiction')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Fiction</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Management')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Management</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/searchByCategory(category='Arts &amp; Literature')}" class="list-group-item">
-                                        <span class="glyphicon glyphicon-book"></span> Arts &amp; Literature</a>
-                                </li>
-                                <li><a th:href="@{/faq}" class="list-group-item"><span
-                                            class="glyphicon glyphicon-question-sign"></span> FAQ</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <form class="d-flex ms-2" th:action="@{/searchBook}" method="post">
-                                <input class="form-control me-1" type="search" name="keyword" placeholder="Search Book" aria-label="Search">
-                                <button class="btn btn-success me-3 d-flex" type="submit"><i
-                                        class="fas fa-search me-2 mt-1"></i>
-                                    Search</button>
-                            </form>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <a class="btn btn-outline-light me-2" th:href="@{/shoppingCart/cart}">
-                            <i class="fas fa-shopping-cart me-1"></i> Cart
-                            <span class="badge bg-primary text-white ms-1 rounded-pill"><span
-                                    sec:authorize="isAuthenticated()"
-                                    th:text="${#lists.size(cartItemList)}"></span><span sec:authorize="isAnonymous()">0</span>
-                            </span>
-                        </a>
-                    </form>
-                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" th:href="@{/profile}" sec:authorize="isAuthenticated()">Settings</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#!" sec:authorize="isAuthenticated()">Activity
-                                        Log</a></li>
-                                <li><a class="dropdown-item" th:href="@{/auth/login}" sec:authorize="isAnonymous()">Login</a></li>
-                                <li><a class="dropdown-item" th:href="@{/auth/register}" sec:authorize="isAnonymous()">Register</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()" />
-                                </li>
-                                <li><a class="dropdown-item" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div th:fragment="common-slideBar">
-        <section class="ms-0 mb-0 h-100">
-            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav ps-3">
-                        <div class="sb-sidenav-menu-heading text-center fs-3">profile</div>
-                        <a th:class="${classActiveEdit}? 'nav-link active' : 'nav-link'" th:href="@{/profile}">
-                            <div class="sb-nav-link-icon fs-4"><i class="far fa-address-card"></i></div>
-                            User Info
-                        </a>
-                        <a th:class="${classActiveOrders}? 'nav-link active' : 'nav-link'" th:href="@{/listOfOrders}">
-                            <div class="sb-nav-link-icon fs-4"><i class="fas fa-shopping-cart"></i></div>
-                            Orders
-                        </a>
-                        <a th:class="${classActiveBilling}? 'nav-link active' : 'nav-link'" th:href="@{/listOfCreditCards}">
-                            <div class="sb-nav-link-icon fs-4"><i class="far fa-credit-card"></i></div>
-                            Billing
-                        </a>
-                        <a th:class="${classActiveShipping}? 'nav-link active' : 'nav-link'" th:href="@{/listOfShippingAddresses}">
-                            <div class="sb-nav-link-icon fs-4"><i class="fas fa-truck"></i></div>
-                            Shipping
-                        </a>
-                        <div class="sb-sidenav-menu-heading text-center fs-3" sec:authorize="hasRole('ADMIN')">Admin
-                        </div>
-                        <a th:class="${classActiveBookManager}? 'nav-link collapsed active' : 'nav-link collapsed'" sec:authorize="hasRole('ADMIN')" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon fs-4"><i class="fas fa-book"></i></div>
-                            Books Manager
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a th:class="${classActiveBookList}? 'nav-link active' : 'nav-link'" th:href="@{/admin/book/bookList}">Books List</a>
-                                <a th:class="${classActiveAddNewBook}? 'nav-link active' : 'nav-link'" th:href="@{/admin/book/add}">Add Book</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link" href="#" sec:authorize="hasRole('ADMIN')">
-                            <div class="sb-nav-link-icon fs-4"><i class="fas fa-boxes"></i></div>
-                            Orders Manager
-                        </a>
-                    </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div>Logged in as: <strong><span class="fs-5 ps-5"
-                                th:text="${#strings.toUpperCase(user.username)}"></span></strong>
-                    </div>
-                </div>
-            </nav>
-        </section>
-    </div>
-    <div th:fragment="common-footer">
-        <footer class="w-100 bg-dark">
-            <div class="container-fluid">
-                <div class="row bg-grad-line text-light">
-                    <div class="col-lg-3 mt-5 justify-content-center">
-                        <img class="w-75 logo p-4 mx-auto d-block" src="../../static/img/logo.png" th:src="@{/img/logo.png}" alt="" srcset="">
-                        <p></p><br>
-                        <p></p>
-                    </div>
-                    <div class="col-lg-3 text-center mt-5">
-                        <h4 class="text-uppercase mb-4">Contact</h4>
-                        <div>
-                            <p>
-                                <i class="fa fa-map-pin"></i> 123 XXX Ave<br /> Tétouan, Maroc 92xxx
-                            </p>
-                            <p>
-                                <i class="fa fa-phone"></i> Phone (MAR) : +212 999 999 9999
-                            </p>
-                            <p>
-                                <i class="fa fa-envelope"></i> E-mail : info@lebookstore.com
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 text-center mt-5">
-                        <h4 class="text-uppercase">Links</h4>
-                    </div>
-                    <div class="col-lg-3 text-center mt-5">
-                        <h4 class="text-uppercase">Store Hours</h4>
-                    </div>
-                </div>
-                <div class="row bg-dark text-white">
-                    <div class="col-lg-6 justify-content-start">
-                        <p class="pt-2 ms-2">&copy; 2021 - All Rights Reserved</p>
-                    </div>
-                    <div class="col-lg-6 justify-content-end">
-                        <ul class="bottom_ul fs-6">
-                            <li class="link-white"><a class="fs-6" href="#">About us</a></li>
-                            <li class="link-white"><a class="fs-6" href="#">Blog</a></li>
-                            <li class="link-white"><a class="fs-6" href="#">Faq's</a></li>
-                            <li class="link-white"><a class="fs-6" href="#">Contact us</a></li>
-                            <li class="link-white"><a class="fs-6" href="#">Site Map</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <div th:fragment="common-body-scripts">
-        <script src="../../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-        <script src="js/scripts.js" th:src="@{/js/scripts.js}"></script>
-        <script src="../../static/js/simple-datatables.min.js" th:src="@{/js/simple-datatables.min.js}"></script>
-        <script src="../../static/js/datatables-simple-demo.js" th:src="@{/js/datatables-simple-demo.js}"></script>
-    </div>
+	<div th:fragment="common-navbar">
+		<nav class="navbar navbar-expand-lg navbar-light bg-grad-line">
+			<div class="container-fluid">
+				<a class="navbar-brand ps-4" th:href="@{/}"><i
+					class="fas fa-home"></i> E-Book Store</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle text-uppercase" href="#"
+							id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <i class="fas fa-book"></i> Books
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a th:href="@{/bookshelf}" class="list-group-item">
+										<span class="glyphicon glyphicon-th-list"></span> Browse All
+										Books
+								</a></li>
+								<li><a
+									th:href="@{/searchByCategory(category='Programming')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Programming
+								</a></li>
+								<li><a
+									th:href="@{/searchByCategory(category='Engineering')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Engineering
+								</a></li>
+								<li><a
+									th:href="@{/searchByCategory(category='Mathematics')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Mathematics
+								</a></li>
+								<li><a
+									th:href="@{/searchByCategory(category='Physics And Chemistry')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Physics And Chemistry
+								</a></li>
+								<li><a th:href="@{/searchByCategory(category='Fiction')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Fiction
+								</a></li>
+								<li><a
+									th:href="@{/searchByCategory(category='Management')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Management
+								</a></li>
+								<li><a
+									th:href="@{/searchByCategory(category='Arts &amp; Literature')}"
+									class="list-group-item"> <span
+										class="glyphicon glyphicon-book"></span> Arts &amp; Literature
+								</a></li>
+								<li><a th:href="@{/faq}" class="list-group-item"><span
+										class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
+							</ul></li>
+						<li>
+							<form class="d-flex ms-2" th:action="@{/searchBook}"
+								method="post">
+								<input class="form-control me-1" type="search" name="keyword"
+									placeholder="Search Book" aria-label="Search">
+								<button class="btn btn-success me-3 d-flex" type="submit">
+									<i class="fas fa-search me-2 mt-1"></i> Search
+								</button>
+							</form>
+						</li>
+					</ul>
+					<form class="d-flex">
+						<a class="btn btn-outline-light me-2"
+							th:href="@{/shoppingCart/cart}"> <i
+							class="fas fa-shopping-cart me-1"></i> Cart
+						</a>
+					</form>
+					<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+								class="fas fa-user fa-fw"></i></a>
+							<ul class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" th:href="@{/profile}"
+									sec:authorize="isAuthenticated()">Settings</a></li>
+								<li><a class="dropdown-item" href="#!"
+									sec:authorize="isAuthenticated()">Activity Log</a></li>
+								<li><a class="dropdown-item" th:href="@{/auth/login}"
+									sec:authorize="isAnonymous()">Login</a></li>
+								<li><a class="dropdown-item" th:href="@{/auth/register}"
+									sec:authorize="isAnonymous()">Register</a></li>
+								<li>
+									<hr class="dropdown-divider" sec:authorize="isAuthenticated()" />
+								</li>
+								<li><a class="dropdown-item" th:href="@{/logout}"
+									sec:authorize="isAuthenticated()">Logout</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div th:fragment="common-slideBar">
+		<section class="ms-0 mb-0 h-100">
+			<nav class="sb-sidenav accordion sb-sidenav-light"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav ps-3">
+						<div class="sb-sidenav-menu-heading text-center fs-3">profile</div>
+						<a th:class="${classActiveEdit}? 'nav-link active' : 'nav-link'"
+							th:href="@{/profile}">
+							<div class="sb-nav-link-icon fs-4">
+								<i class="far fa-address-card"></i>
+							</div> User Info
+						</a> <a
+							th:class="${classActiveOrders}? 'nav-link active' : 'nav-link'"
+							th:href="@{/listOfOrders}">
+							<div class="sb-nav-link-icon fs-4">
+								<i class="fas fa-shopping-cart"></i>
+							</div> Orders
+						</a> <a
+							th:class="${classActiveBilling}? 'nav-link active' : 'nav-link'"
+							th:href="@{/listOfCreditCards}">
+							<div class="sb-nav-link-icon fs-4">
+								<i class="far fa-credit-card"></i>
+							</div> Billing
+						</a> <a
+							th:class="${classActiveShipping}? 'nav-link active' : 'nav-link'"
+							th:href="@{/listOfShippingAddresses}">
+							<div class="sb-nav-link-icon fs-4">
+								<i class="fas fa-truck"></i>
+							</div> Shipping
+						</a>
+						<div class="sb-sidenav-menu-heading text-center fs-3"
+							sec:authorize="hasRole('ADMIN')">Admin</div>
+						<a
+							th:class="${classActiveBookManager}? 'nav-link collapsed active' : 'nav-link collapsed'"
+							sec:authorize="hasRole('ADMIN')" href="#"
+							data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+							aria-expanded="false" aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon fs-4">
+								<i class="fas fa-book"></i>
+							</div> Books Manager
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a
+									th:class="${classActiveBookList}? 'nav-link active' : 'nav-link'"
+									th:href="@{/admin/book/bookList}">Books List</a> <a
+									th:class="${classActiveAddNewBook}? 'nav-link active' : 'nav-link'"
+									th:href="@{/admin/book/add}">Add Book</a>
+							</nav>
+						</div>
+						<a class="nav-link" href="#" sec:authorize="hasRole('ADMIN')">
+							<div class="sb-nav-link-icon fs-4">
+								<i class="fas fa-boxes"></i>
+							</div> Orders Manager
+						</a>
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div>
+						Logged in as: <strong><span class="fs-5 ps-5"
+							th:text="${#strings.toUpperCase(user.username)}"></span></strong>
+					</div>
+				</div>
+			</nav>
+		</section>
+	</div>
+	<div th:fragment="common-footer">
+		<footer class="w-100 bg-dark">
+			<div class="container-fluid">
+				<div class="row bg-grad-line text-light">
+					<div class="col-lg-3 mt-5 justify-content-center">
+						<img class="w-75 logo p-4 mx-auto d-block"
+							src="../../static/img/logo.png" th:src="@{/img/logo.png}" alt=""
+							srcset="">
+						<p></p>
+						<br>
+						<p></p>
+					</div>
+					<div class="col-lg-3 text-center mt-5">
+						<h4 class="text-uppercase mb-4">Contact</h4>
+						<div>
+							<p>
+								<i class="fa fa-map-pin"></i> 123 XXX Ave<br /> Tétouan, Maroc
+								92xxx
+							</p>
+							<p>
+								<i class="fa fa-phone"></i> Phone (MAR) : +212 999 999 9999
+							</p>
+							<p>
+								<i class="fa fa-envelope"></i> E-mail : info@bookstore.com
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-3 text-center mt-5">
+						<h4 class="text-uppercase">Links</h4>
+						<ul class="navbar-nav justify-content-start">
+							<li class="nav-item link-facebook text-start ps-5"><a class="nav-link fs-4" href="#"><i class="fab fa-facebook-square"></i> Facebook</a></li>
+							<li class="nav-item link-instagram text-start ps-5"><a class="nav-link fs-4" href="#"><i class="fab fa-instagram-square"></i> Instagram</a></li>
+							<li class="nav-item link-github text-start ps-5"><a class="nav-link fs-4" href="#"><i class="fab fa-github-square"></i> GitHub</a></li>
+							<li class="nav-item link-linked-in text-start ps-5"><a class="nav-link fs-4" href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-3 text-center mt-5">
+						<h4 class="text-uppercase mb-5">Store Hours</h4>
+						<p>Monday to Friday:<br> 8:00 am to 22:00</p>
+						<p>Saturday & Sunday:<br> 11:00 am to 18:00</p>
+					</div>
+				</div>
+				<div class="row bg-dark text-white">
+					<div class="col-lg-6 justify-content-start">
+						<p class="pt-2 ms-2">&copy; 2021 - All Rights Reserved</p>
+					</div>
+					<div class="col-lg-6 justify-content-end">
+						<ul class="bottom_ul fs-6">
+							<li class="link-white"><a class="fs-6" href="#">About us</a></li>
+							<li class="link-white"><a class="fs-6" href="#">Blog</a></li>
+							<li class="link-white"><a class="fs-6" href="#">Faq's</a></li>
+							<li class="link-white"><a class="fs-6" href="#">Contact
+									us</a></li>
+							<li class="link-white"><a class="fs-6" href="#">Site Map</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<div th:fragment="common-body-scripts">
+		<script src="../../static/js/bootstrap.bundle.min.js"
+			th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script src="js/scripts.js" th:src="@{/js/scripts.js}"></script>
+		<script src="../../static/js/simple-datatables.min.js"
+			th:src="@{/js/simple-datatables.min.js}"></script>
+		<script src="../../static/js/datatables-simple-demo.js"
+			th:src="@{/js/datatables-simple-demo.js}"></script>
+	</div>
 </body>
 
 </html>

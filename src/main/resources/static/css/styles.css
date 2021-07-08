@@ -11322,3 +11322,42 @@ body {
 .link-white a:hover {
     color: var(--bs-teal) !important;
 }
+
+.bg-page {
+    background-image: url(../img/wooden.png) ;
+}
+
+
+.link-facebook a {
+    color: var(--bs-white) !important;
+}
+
+.link-facebook a:hover {
+    color: #3b5998 !important;
+}
+
+.link-instagram a {
+    color: var(--bs-white) !important;
+}
+
+.link-instagram a:hover {
+    color:  #a222cc!important;
+    
+}
+.link-github a {
+    color: var(--bs-white) !important;
+}
+
+.link-github a:hover {
+    color: #000 !important;
+}
+
+.link-linked-in a {
+    color: var(--bs-white) !important;
+}
+
+.link-linked-in a:hover {
+    color: #0077b5 !important;
+}
+
+

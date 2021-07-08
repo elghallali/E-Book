@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book findOne(Long id) {
-        return bookRepository.findById(id).orElse(null);
+        return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book id: " + id) );
     }
 
     public List<Book> findByCategory(String category) {
@@ -65,22 +65,14 @@ public class BookServiceImpl implements BookService {
         return bookRepository.save(book);
     }
 
-    @Override
-    public void removeOne(Long id) {
-        bookRepository.deleteById(id);
-    }
+    
 
-    /*
-     * /
-     * 
-     * @Override public Page<Book> findAll(Pageable pageable) { return
-     * bookRepository.findAll(pageable);
-     * 
-     * } /
-     */
-    @Override
-    public Long countBooks() {
-        return bookRepository.count();
-    }
+    
+    
+
+    public void deleteById(Long id) {
+		Book book = findOne(id);
+		bookRepository.delete(book);
+	}
 
 }

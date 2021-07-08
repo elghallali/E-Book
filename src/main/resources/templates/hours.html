@@ -4,8 +4,44 @@
 
 <head th:replace="common/header :: common-header"></head>
 
-<body>
+<body class="bg-general">
     <div th:replace="common/header :: common-navbar"></div>
+    <header class="bg-page py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Hours</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop hours & directions template</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h2 class="text-center mb-3 text-danger">Hours & Directions</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 offset-lg-1 mt-5">
+                                    <h4>Monday - Friday</h4>
+                                    <p>8:00 am - 10:00 pm</p>
+                                    <h4>Saturday - Sunday</h4>
+                                    <p>11:00 am - 7:00 pm</p>
+                                    <h4>Address & Phone:</h4>
+                                    <p>Abc road, XX, XX 012301<br> +212 999-999-999
+                                    </p>
+                                </div>
+                                <div class="col-lg-7">
+                                    <img class="w-100" th:src="@{/img/direction.png}" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            
+        </div>
+    </main>
 
 
     <div th:replace="common/header :: common-footer"></div>

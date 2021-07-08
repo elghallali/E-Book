@@ -16,10 +16,8 @@ public interface BookService {
 
 	Book save(Book book);
 
-	void removeOne(Long id);
+	void deleteById(Long id);
 
-	// Page<Book> findAll(Pageable pageable);
-
-	Long countBooks();
+	
 
 }

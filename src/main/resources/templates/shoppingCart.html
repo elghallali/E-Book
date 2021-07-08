@@ -6,11 +6,11 @@
 
 <body class="bg-general">
     <div th:replace="common/header :: common-navbar"></div>
-    <header class="bg-dark py-5">
+    <header class="bg-page py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Shopping Cart</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop homepage template</p>
+                <p class="lead fw-normal text-white-50 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
         </div>
     </header>
@@ -44,7 +44,7 @@
                                         <div class="row mb-4">
                                             <div class="col-md-5 col-lg-3 col-xl-3">
                                                 <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                                                    <img class="img-fluid w-100" th:src="@{/img/books/}+ 'book_' +${cartItem.book.id}+'.png'" alt="Sample">
+                                                    <img class="img-fluid w-100" th:src="@{/img/books/} + 'book_' +${cartItem.book.id}+'.png'" alt="Sample">
 
                                                 </div>
                                             </div>

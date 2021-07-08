@@ -10,7 +10,12 @@ public class MoroccoStatesConstants {
 
     public final static Map<String, String> mapOfMoroccoStates = new HashMap<String, String>() {
 
-        {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -8994451625358751588L;
+
+		{
 
             put("TAN-TET-HOC", "Tanger-Tétouan-Al Hoceïma");
             put("ORI", "L'Oriental");

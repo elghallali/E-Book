@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +41,7 @@ public class AdminController {
     @Autowired
     private CartItemService cartItemService;
 
-    @GetMapping(value = "/book/add")
+    @RequestMapping(value = "/book/add")
     public String addBook(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
@@ -64,7 +65,7 @@ public class AdminController {
             byte[] bytes = bookImage.getBytes();
             String name = "book_" + book.getId() + ".png";
             BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(new File("src/main/resources/static/image/book/" + name)));
+                    new FileOutputStream(new File("src/main/resources/static/img/books/" + name)));
             stream.write(bytes);
             stream.close();
         } catch (Exception e) {
@@ -113,10 +114,10 @@ public class AdminController {
                 byte[] bytes = bookImage.getBytes();
                 String name = "book_" + book.getId() + ".png";
 
-                Files.delete(Paths.get("src/main/resources/static/image/book/" + name));
+                Files.delete(Paths.get("src/main/resources/static/img/books/" + name));
 
                 BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(new File("src/main/resources/static/image/book/" + name)));
+                        new FileOutputStream(new File("src/main/resources/static/img/books/" + name)));
                 stream.write(bytes);
                 stream.close();
             } catch (Exception e) {
@@ -142,12 +143,15 @@ public class AdminController {
 
     }
 
-    @PostMapping(value = "/book/remove")
-    public String remove(@ModelAttribute("id") String id, Model model) {
-        bookService.removeOne(Long.parseLong(id.substring(8)));
+    @GetMapping(value="/book/remove/{id}")
+    public String remove(
+            @PathVariable("id") Long id, Model model
+    ) {
+        bookService.deleteById(id);
         List<Book> bookList = bookService.findAll();
         model.addAttribute("bookList", bookList);
 
         return "redirect:/admin/book/bookList";
     }
+
 }
