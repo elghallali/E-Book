@@ -14,7 +14,7 @@
 	<name>e-book</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -84,6 +84,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>springboot-ebook-app-image</finalName>
 	</build>
 
 </project>
