@@ -1,4 +1,3 @@
-FROM openjdk:8
-EXPOSE 8080
-ADD target/springboot-ebook-app-image.jar springboot-ebook-app-image.jar
-ENTRYPOINT ["java", "-jar", "/springboot-ebook-app-image.jar"]
+FROM eclipse-temurin:17
+COPY build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
