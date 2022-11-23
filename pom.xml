@@ -84,6 +84,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<defaultGoal>clean install</defaultGoal>
 		<finalName>springboot-ebook-app-image</finalName>
 	</build>
 
